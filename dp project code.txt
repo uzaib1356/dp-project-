@@ -1,0 +1,550 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DP_Project
+{
+    class AnimalInfoHandler
+    {
+        private List<IAnimalInfoFactory> animalInfoFactories;
+
+        public AnimalInfoHandler(List<IAnimalInfoFactory> factories)
+        {
+            animalInfoFactories = factories;
+        }
+
+        public void DisplayAnimalInfo()
+        {
+            Console.WriteLine("==========================================================================");
+            Console.WriteLine("|                       Animals Information                              |");
+            Console.WriteLine("==========================================================================\n");
+            foreach (var factory in animalInfoFactories)
+            {
+                IAnimalInfo animalInfo = factory.CreateAnimalInfo();
+                animalInfo.DisplayInfo();
+                Console.WriteLine("---------------------------------------------------------------------");
+            }
+        }
+    }
+    // Factory Method Pattern: Product interface
+    interface IAnimalInfo
+    {
+        void DisplayInfo();
+    }
+
+    // Factory Method Pattern: Concrete Products
+    class LionInfo : IAnimalInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("1- Lion Information - Size: Large, Habitat: Grasslands");
+        }
+    }
+
+    class ElephantInfo : IAnimalInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("2- Elephant Information - Size: Huge, Habitat: Forests");
+        }
+    }
+
+    class GiraffeInfo : IAnimalInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("3- Giraffe Information - Size: Tall, Habitat: Savannas");
+        }
+    }
+
+    class PenguinInfo : IAnimalInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("4- Penguin Information - Size: Small, Habitat: Antarctica");
+        }
+    }
+
+    class TigerInfo : IAnimalInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("5- Tiger Information - Size: Large, Habitat: Jungles");
+        }
+    }
+
+    // Factory Method Pattern: Creator interface
+    interface IAnimalInfoFactory
+    {
+        IAnimalInfo CreateAnimalInfo();
+    }
+
+    // Factory Method Pattern: Concrete Creators
+    class LionInfoFactory : IAnimalInfoFactory
+    {
+        public IAnimalInfo CreateAnimalInfo()
+        {
+            return new LionInfo();
+        }
+    }
+
+    class ElephantInfoFactory : IAnimalInfoFactory
+    {
+        public IAnimalInfo CreateAnimalInfo()
+        {
+            return new ElephantInfo();
+        }
+    }
+
+    class GiraffeInfoFactory : IAnimalInfoFactory
+    {
+        public IAnimalInfo CreateAnimalInfo()
+        {
+            return new GiraffeInfo();
+        }
+    }
+
+    class PenguinInfoFactory : IAnimalInfoFactory
+    {
+        public IAnimalInfo CreateAnimalInfo()
+        {
+            return new PenguinInfo();
+        }
+    }
+
+    class TigerInfoFactory : IAnimalInfoFactory
+    {
+        public IAnimalInfo CreateAnimalInfo()
+        {
+            return new TigerInfo();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DP_Project
+{
+    class BirdsInfoHandler
+    {
+        private IBirdInfoFactory birdInfoFactory;
+
+        public BirdsInfoHandler(IBirdInfoFactory factory)
+        {
+            birdInfoFactory = factory;
+        }
+
+        public void DisplayBirdInfo()
+        {
+            IBirdInfo birdInfo = birdInfoFactory.CreateBirdInfo();
+            birdInfo.DisplayInfo();
+        }
+    }
+
+    // Abstract Factory Pattern: Abstract Product interface
+    interface IBirdInfo
+    {
+        void DisplayInfo();
+    }
+
+    // Abstract Factory Pattern: Concrete Products
+    class EagleInfo : IBirdInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("1- Eagle Information - Wingspan: 6 feet, Habitat: Mountains");
+        }
+    }
+
+    class ParrotInfo : IBirdInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("2- Parrot Information - Wingspan: 1 foot, Habitat: Rainforests");
+        }
+    }
+
+    class CrowInfo : IBirdInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("3- crow Information - Wingspan: 2 foot, Habitat: forests");
+        }
+    }
+
+    class MoorInfo : IBirdInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("4- Moor Information - Wingspan: 4 foot, Habitat: amazonforest");
+        }
+    }
+
+    class SparrowInfo : IBirdInfo
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("5- sparrow Information - Wingspan: 3 foot, Habitat: Rainforests");
+        }
+    }
+
+    // Abstract Factory Pattern: Abstract Factory interface
+    interface IBirdInfoFactory
+    {
+        IBirdInfo CreateBirdInfo();
+    }
+
+    // Abstract Factory Pattern: Concrete Factories
+    class EagleInfoFactory : IBirdInfoFactory
+    {
+        public IBirdInfo CreateBirdInfo()
+        {
+            return new EagleInfo();
+        }
+    }
+
+    class ParrotInfoFactory : IBirdInfoFactory
+    {
+        public IBirdInfo CreateBirdInfo()
+        {
+            return new ParrotInfo();
+        }
+    }
+
+    class CrowInfoFactory : IBirdInfoFactory
+    {
+        public IBirdInfo CreateBirdInfo()
+        {
+            return new CrowInfo();
+        }
+    }
+
+    class MoorInfoFactory : IBirdInfoFactory
+    {
+        public IBirdInfo CreateBirdInfo()
+        {
+            return new MoorInfo();
+        }
+    }
+
+    class SparrowInfoFactory : IBirdInfoFactory
+    {
+        public IBirdInfo CreateBirdInfo()
+        {
+            return new SparrowInfo();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DP_Project
+{
+    // Builder Pattern: Product
+    class NewPurchase
+    {
+        public string Type { get; set; }
+        public string Quantity { get; set; }
+        public string Price { get; set; }
+
+        public void DisplayPurchaseDetails()
+        {
+            Console.WriteLine($"New Animal Purchase - Type: {Type}, Quantity: {Quantity}, Price: {Price}");
+        }
+    }
+
+    // Builder Pattern: Director
+    class AnimalPurchaseDirector
+    {
+        private IAnimalPurchaseBuilder animalPurchaseBuilder;
+
+        public AnimalPurchaseDirector(IAnimalPurchaseBuilder builder)
+        {
+            animalPurchaseBuilder = builder;
+        }
+
+        public void ConstructPurchase(string type, string quantity, string price)
+        {
+            animalPurchaseBuilder.SetType(type);
+            animalPurchaseBuilder.SetQuantity(quantity);
+            animalPurchaseBuilder.SetPrice(price);
+        }
+    }
+
+
+    // Builder Pattern: Builder interface
+    interface IAnimalPurchaseBuilder
+    {
+        void SetType(string type);
+        void SetQuantity(string quantity);
+        void SetPrice(string price);
+        NewPurchase Build();
+    }
+
+    // Builder Pattern: Concrete Builder
+    class AnimalPurchaseBuilder : IAnimalPurchaseBuilder
+    {
+        private NewPurchase animalPurchase = new NewPurchase();
+
+        public void SetType(string type)
+        {
+            animalPurchase.Type = type;
+        }
+
+        public void SetQuantity(string quantity)
+        {
+            animalPurchase.Quantity = quantity;
+        }
+
+        public void SetPrice(string price)
+        {
+            animalPurchase.Price = price;
+        }
+
+        public NewPurchase Build()
+        {
+            return animalPurchase;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DP_Project
+{
+    // Strategy Pattern: Context
+    class StaffInfoHandler
+    {
+        private IStaffInfoStrategy staffInfoStrategy;
+
+        public StaffInfoHandler(IStaffInfoStrategy strategy)
+        {
+            staffInfoStrategy = strategy;
+        }
+
+        public void DisplayStaffInfo()
+        {
+            staffInfoStrategy.DisplayInfo();
+        }
+    }
+
+    // Strategy Pattern: Strategy interface
+    interface IStaffInfoStrategy
+    {
+        void DisplayInfo();
+    }
+
+    // Strategy Pattern: Concrete Strategies
+    class AnimalCareStrategy : IStaffInfoStrategy
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("Staff Information - Animal Care Team");
+            Console.WriteLine("Responsibilities: Feeding, health check-ups, and overall well-being of animals.");
+        }
+    }
+
+    class TourGuideStrategy : IStaffInfoStrategy
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("Staff Information - Tour Guide Team");
+            Console.WriteLine("Responsibilities: Providing educational tours, sharing interesting facts about animals.");
+        }
+    }
+
+    class ResearcherStrategy : IStaffInfoStrategy
+    {
+        public void DisplayInfo()
+        {
+            Console.WriteLine("Staff Information - Researcher Team");
+            Console.WriteLine("Responsibilities: Conducting research on animal behavior, health, and conservation initiatives.");
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using DP_Project;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        while (true)
+        {
+            DisplayMainMenu();
+
+            Console.Write("Enter your choice (1-4, 0 to exit): ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Clear();
+                    AnimalMain();
+                    break;
+                case "2":
+                    Console.Clear();
+                    BirdsMain();
+                    break;
+                case "3":
+                    Console.Clear();
+                    NewMain();
+                    break;
+                case "4":
+                    Console.Clear();
+                    StaffMain();
+                    break;
+                case "0":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+
+            Console.WriteLine("\nPress Enter to continue...");
+            Console.ReadLine();
+            Console.Clear();
+        }
+    }
+
+    static void DisplayMainMenu()
+    {
+        Console.WriteLine("==========================================================================");
+        Console.WriteLine("|                        Zoo Management Main Menu                         |");
+        Console.WriteLine("==========================================================================\n");
+        Console.WriteLine("1. Animal Info");
+        Console.WriteLine("2. Birds Info");
+        Console.WriteLine("3. New Purchase");
+        Console.WriteLine("4. Staff Info");
+        Console.WriteLine("0. Exit");
+    }
+
+    static void AnimalMain()
+    {
+        List<IAnimalInfoFactory> animalFactories = new List<IAnimalInfoFactory>
+        {
+            new LionInfoFactory(),
+            new ElephantInfoFactory(),
+            new GiraffeInfoFactory(),
+            new PenguinInfoFactory(),
+            new TigerInfoFactory()
+        };
+
+        AnimalInfoHandler client = new AnimalInfoHandler(animalFactories);
+        client.DisplayAnimalInfo();
+    }
+
+    static void BirdsMain()
+    {
+        Console.WriteLine("==========================================================================");
+        Console.WriteLine("|                          Birds Information                              |");
+        Console.WriteLine("==========================================================================\n");
+        IBirdInfoFactory eagleInfoFactory = new EagleInfoFactory();
+        BirdsInfoHandler eagleClient = new BirdsInfoHandler(eagleInfoFactory);
+        eagleClient.DisplayBirdInfo();
+
+        Console.WriteLine("---------------------------------------------------------------------");
+
+        IBirdInfoFactory parrotInfoFactory = new ParrotInfoFactory();
+        BirdsInfoHandler parrotClient = new BirdsInfoHandler(parrotInfoFactory);
+        parrotClient.DisplayBirdInfo();
+
+        Console.WriteLine("---------------------------------------------------------------------");
+
+        IBirdInfoFactory CrowInfoFactory = new CrowInfoFactory();
+        BirdsInfoHandler CrowClient = new BirdsInfoHandler(CrowInfoFactory);
+        CrowClient.DisplayBirdInfo();
+
+        Console.WriteLine("---------------------------------------------------------------------");
+
+        IBirdInfoFactory MoorInfoFactory = new MoorInfoFactory();
+        BirdsInfoHandler MoorClient = new BirdsInfoHandler(MoorInfoFactory);
+        MoorClient.DisplayBirdInfo();
+
+        Console.WriteLine("---------------------------------------------------------------------");
+
+        IBirdInfoFactory SparrowInfoFactory = new SparrowInfoFactory();
+        BirdsInfoHandler SparoowClient = new BirdsInfoHandler(SparrowInfoFactory);
+        SparoowClient.DisplayBirdInfo();
+    }
+
+    static void NewMain()
+    {
+        Console.WriteLine("==========================================================================");
+        Console.WriteLine("|                          New Purchase Information                       |");
+        Console.WriteLine("==========================================================================\n");
+        // Create a builder
+        IAnimalPurchaseBuilder builder = new AnimalPurchaseBuilder();
+
+        // Create a director
+        AnimalPurchaseDirector director = new AnimalPurchaseDirector(builder);
+
+        // Construct a new animal purchase
+        director.ConstructPurchase("Lion", "2", "5000");
+
+        // Get the result from the builder
+        NewPurchase purchase = builder.Build();
+
+        // Display the purchase details
+        purchase.DisplayPurchaseDetails();
+
+        Console.WriteLine("---------------------------------------------------------------------");
+
+        IAnimalPurchaseBuilder builder1 = new AnimalPurchaseBuilder();
+
+        // Create a director
+        AnimalPurchaseDirector director1 = new AnimalPurchaseDirector(builder1);
+
+        // Construct a new animal purchase
+        director1.ConstructPurchase("Monkey", "4", "15000");
+
+        // Get the result from the builder
+        NewPurchase purchase1 = builder1.Build();
+
+        // Display the purchase details
+        purchase1.DisplayPurchaseDetails();
+    }
+
+    static void StaffMain()
+    {
+        Console.WriteLine("==========================================================================");
+        Console.WriteLine("|                          Staff Information                              |");
+        Console.WriteLine("==========================================================================\n");
+        // Create different strategies for staff information
+        IStaffInfoStrategy animalCareStrategy = new AnimalCareStrategy();
+        IStaffInfoStrategy tourGuideStrategy = new TourGuideStrategy();
+        IStaffInfoStrategy researcherStrategy = new ResearcherStrategy();
+
+        // Create contexts with different strategies
+        StaffInfoHandler animalCareContext = new StaffInfoHandler(animalCareStrategy);
+        StaffInfoHandler tourGuideContext = new StaffInfoHandler(tourGuideStrategy);
+        StaffInfoHandler researcherContext = new StaffInfoHandler(researcherStrategy);
+
+        // Display staff information using different strategies
+        Console.WriteLine("Animal Care Team Information:");
+        animalCareContext.DisplayStaffInfo();
+        Console.WriteLine("--------------------------------------------------------------------------------------");
+
+        Console.WriteLine("Tour Guide Team Information:");
+        tourGuideContext.DisplayStaffInfo();
+        Console.WriteLine("--------------------------------------------------------------------------------------");
+
+        Console.WriteLine("Researcher Team Information:");
+        researcherContext.DisplayStaffInfo();
+    }
+}
